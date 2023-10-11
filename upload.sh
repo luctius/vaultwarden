@@ -1,4 +1,5 @@
 #!/bin/bash
 cargo clean 
-./update.sh &&  cross build --target armv7-unknown-linux-musleabihf --features vendored_openssl,sqlite --release &&  scp target/armv7-unknown-linux-musleabihf/release/vaultwarden nas:bitwarden/bitwarden_rs.new && cargo clean
-echo "download https://github.com/dani-garcia/bw_web_builds/releases/latest"
+./update.sh &&  cross build --target armv7-unknown-linux-musleabihf --features vendored_openssl,sqlite --release &&  scp target/armv7-unknown-linux-musleabihf/release/vaultwarden nas:/home/bitwarden/bitwarden_rs.new && cargo clean
+WEB_VAULT_FILE=$(curl -s https://api.github.com/repos/dani-garcia/bw_web_builds/releases/latest | grep "browser_download_url.*\.tar\.gz" | cut -d : -f 2,3 | tr -d \" | head -n 1)
+ssh nas "cd bitwarden && rm -rf web-vault.previous ; mv web-vault web-vault.previous ; echo ${WEB_VAULT_FILE} | wget -qi - && tar -zxv bw_web_v*.tar.gz && rm bw_web_v*.tar.gz"
