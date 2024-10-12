@@ -1,5 +1,5 @@
 #!/bin/bash -x
-cargo clean
+# cargo clean
 mkdir -p ./vaultwarden/target/armv7-unknown-linux-gnueabihf/release/deps/ &&  cp ./deps/* ./vaultwarden/target/armv7-unknown-linux-gnueabihf/release/deps/
 ./update.sh && cargo zigbuild --target armv7-unknown-linux-gnueabihf.2.26 --features vendored_openssl,sqlite --release &&  scp target/armv7-unknown-linux-musleabihf/release/vaultwarden nas:/home/bitwarden/bitwarden_rs.new && cargo clean
 #cross build --target armv7-unknown-linux-musleabihf --features vendored_openssl,sqlite --release 
