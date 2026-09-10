@@ -1,4 +1,5 @@
 #!/bin/bash -x
+rustup target add armv7-unknown-linux-gnueabihf
 cargo clean
 ./update.sh
 mkdir -p ./target/armv7-unknown-linux-gnueabihf/release/deps/ &&  cp ./deps/* ./target/armv7-unknown-linux-gnueabihf/release/deps/
